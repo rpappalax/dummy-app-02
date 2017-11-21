@@ -9,9 +9,9 @@ jobs:
     steps:
       - checkout
 
-      # - run:
-      #     name: run tests
-      #     command: ./run.sh
+      - run:
+          name: run tests
+          command: ./run.sh
 
       - type: setup-docker-engine
 
@@ -19,5 +19,5 @@ jobs:
 
       # build and deploy the application image
       - run: |
-        docker build -t firefoxtesteng/dummy-app-02:$CIRCLE_BRANCH .
-        docker push firefoxtesteng/dummy-app-02:$CIRCLE_BRANCH
+          docker build -t firefoxtesteng/dummy-app-02:$CIRCLE_BRANCH .
+          docker push firefoxtesteng/dummy-app-02:$CIRCLE_BRANCH
