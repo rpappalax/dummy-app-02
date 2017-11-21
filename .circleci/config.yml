@@ -1,10 +1,9 @@
 version: 2
+
 jobs:
   build:
     docker:
       - image: circleci/python:3.6.1
-      
-    # working_directory: ~/repo
 
     steps:
       - checkout
@@ -15,5 +14,10 @@ jobs:
 
       # build and deploy the application image
       - run: |
-          docker build -t firefoxtesteng/dummy-app-02:$CIRCLE_BRANCH .
-          docker push firefoxtesteng/dummy-app-02:$CIRCLE_BRANCH
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            docker build -t firefoxtesteng/dummy-app-02:latest .
+            docker push firefoxtesteng/dummy-app-02:latest
+          else
+            docker build -t firefoxtesteng/dummy-app-02:$CIRCLE_BRANCH .
+            docker push firefoxtesteng/dummy-app-02:$CIRCLE_BRANCH
+          fi
