@@ -14,10 +14,19 @@ jobs:
 
       # build and deploy the application image
       - run: |
+          DOCKER_IMAGE=firefoxtesteng/dummy-app-02
+          DOCKER_TAG=$CIRCLE_BRANCH
+
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            docker build -t firefoxtesteng/dummy-app-02:latest .
-            docker push firefoxtesteng/dummy-app-02:latest
+            DOCKER_TAG="latest"
+          fi
+
+          echo "Pushing to ${DOCKER_IMAGE}:${DOCKER_TAG}"
+
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            docker build -t $DOCKER_IMAGE:latest .
+            docker push $DOCKER_IMAGE:latest
           else
-            docker build -t firefoxtesteng/dummy-app-02:$CIRCLE_BRANCH .
-            docker push firefoxtesteng/dummy-app-02:$CIRCLE_BRANCH
+            docker build -t $DOCKER_IMAGE:$CIRCLE_BRANCH .
+            docker push $DOCKER_IMAGE:$CIRCLE_BRANCH
           fi
