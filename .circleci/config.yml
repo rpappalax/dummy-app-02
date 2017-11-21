@@ -4,14 +4,10 @@ jobs:
     docker:
       - image: circleci/python:3.6.1
       
-    working_directory: ~/repo
+    # working_directory: ~/repo
 
     steps:
-      - checkout
-
-      - run:
-          name: run tests
-          command: ./run.sh
+      # - checkout
 
       - type: setup-docker-engine
 
